@@ -32,7 +32,7 @@ public class TestCrawlerController {
 	public void testPostResponse() throws Exception {
 
 		//  "http://176.170.247.89/crawler/response";
-		String url = "http://localhost:8080/crawler/response";
+		String url = "http://localhost:8080:8080/crawler/response";
 
 		byte[] data = null;
 		try (InputStream is = TestCrawlerController.class.getResourceAsStream("/postResults.json")) {

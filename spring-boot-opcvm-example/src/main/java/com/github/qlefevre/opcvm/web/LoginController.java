@@ -77,7 +77,7 @@ public class LoginController {
     
     private void sendMessage(String email, String subject, String content, String info, String button,String link){
     	 Context context = new Context();
-    	 context.setVariable("website", "http://localhost");
+    	 context.setVariable("website", "http://localhost:8080");
  		 context.setVariable("content", content);
  		 context.setVariable("info", info);
  		 context.setVariable("link", link);
