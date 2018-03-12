@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Opcvm <span th:text="${#dates.format(date,'dd/MM/yyyy HH''h''mm')}"/></title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <style>
+		tr.even {
+		  background-color: #f5f5f5;
+		}
+		td.green {
+		  color: #080;
+		}
+		td.red {
+		  color: red;
+		}
+		table{
+			font-size:14px;
+			font-family: Verdana,sans-serif;
+			line-height: 1.4;
+			text-align: left;
+			border-collapse: collapse;
+		}
+		td, th{
+			padding: 8px;
+		}
+		</style>
+    </head>
+    <body>
+        <div>
+            <h2>Opcvm <span th:text="${#dates.format(date,'dd/MM/yyyy HH''h''mm')}"/> (<span th:text="${#lists.size(opcvms)}"/>)</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ISIN</th>
+                        <th>Valeur</th>
+                        <th>Var.</th>
+                        <th>Libellé</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="o,iter : ${opcvms}" th:class="${iter.even}?'even'" >
+                        <td th:text="${o.isin}"></td>
+                        <td th:text="${o.quote}"></td>
+                        <td th:text="${o.change}" th:class="${o.change} &lt; 0?'red':'green'"></td>
+                        <td th:text="${o.name}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>
+

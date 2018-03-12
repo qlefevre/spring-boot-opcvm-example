@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns="http://www.w3.org/1999/html">
+
+<head>
+
+	<!-- Header -->
+	<!--/*/ <th:block th:include="header :: head"></th:block> /*/-->
+
+</head>
+
+<body>
+
+	<!-- Navigation -->
+	<!--/*/ <th:block th:include="body :: body"></th:block> /*/-->
+
+	<div class="wrap">
+	
+		<!-- Full Width Image Header with Logo -->
+		<!-- Image backgrounds are set within the full-width-pics.css file. -->
+		<header class="image-bg-fluid-height header-low">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+						<form th:action="@{/recherche}" method="get">
+							<div class="input-group">
+								<input type="text" name="r" class="form-control"
+									placeholder="Rechercher par nom ou ISIN..."></input> <span
+									class="input-group-btn">
+									<button class="btn btn-default" type="submit">
+										<span class="glyphicon glyphicon-search"></span>
+									</button>
+								</span>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</header>
+		
+		
+		
+
+		<!-- Content Section -->
+		<section>
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-10 col-lg-offset-1">
+						<h1 class="section-heading isin-title" >
+						    <span th:text="${opcvm.isin+' - '+opcvm.name+' ' }"></span>
+							<span th:text="${opcvm.change+'%'}" th:class="${opcvm.change} &lt; 0?'red':'green'"></span>
+							<span th:text="${' '+opcvm.quote+'€ ' }"></span>
+						</h1>
+
+						<div id="opcvmchart" style="height: 250px;"></div>
+						<div class="row">
+							<div class="col-xs-7 col-sm-10">
+								<h1 class="alert-title" >Mes alertes</h1>
+							</div>
+							<div class="col-xs-5 col-sm-2 text-right">
+								<a th:href="${'/nouvellealerte/'+isin}" class="btn btn-default btn-bottom">Créer une alerte</a>
+							</div>
+						</div>
+						
+						<div th:if="${!connected}">Vous n'êtes pas connecté.</div>
+						<div th:if="${connected}">
+							<table th:if="${not #lists.isEmpty(alertes)}" class="simpletable table table-striped table-hover" >
+								<thead>
+									<tr>
+										<th>ISIN</th>
+										<th>Description</th>
+										<th>Type</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="alerte : ${alertes}">
+										<td><a th:text="${alerte.isin}" th:href="${'/alerte/'+alerte.id}"></a></td>
+										<td th:text="${isin2descriptions.get(alerte.isin)}"></td>
+										<td th:switch="${alerte.type.toString()}">
+											<span th:case="TRIGGER_ALERT">La valeur dépasse un seuil</span>
+											<span th:case="CHANGE_ALERT">La variation a dépassé un seuil</span>
+											<span th:case="TUNNEL_ALERT">La valeur est sortie du tunnel</span>
+											<span th:case="HIGHEST_YEAR">La valeur atteint son plus haut de l'année</span>
+											<span th:case="LOWEST_YEAR">La valeur atteint son plus bas de l'année</span>
+											<span th:case="HIGHEST_52WK">La valeur atteint son plus haut depuis 52 semaines</span>
+											<span th:case="LOWEST_52WK">La valeur atteint son plus bas depuis 52 semaines</span>
+										</td>
+										<td><div th:class="${'icon-'+alerte.type}" th:utext="${alert2actions.get(alerte.id)}"></div></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+
+	<!-- Footer -->
+	<!--/*/ <th:block th:include="footer :: body"></th:block> /*/-->
+	
+	<script type="text/javascript" th:inline="javascript">
+		new Morris.Area({
+		  // ID of the element in which to draw the chart.
+		  element: 'opcvmchart',
+		  // Chart data records -- each entry in this array corresponds to a point on
+		  // the chart.
+		  data:  /*[[${data}]]*/,
+		  ymin: /*[[${ymin}]]*/,
+		  ymax: /*[[${ymax}]]*/,
+		  pointSize:0,
+		  smooth:0,
+		  fillOpacity:0.2,
+		  xkey: 'period',
+		  ykeys: ['value'],
+		  labels: ['VL'],
+		  postUnits: ' €',
+		  xLabels: 'month',
+		  lineColors: ['#7f7f7f'],
+		  goals: /*[[${alertevaleurs}]]*/,
+		  goalLineColors: /*[[${alertecouleursclaires}]]*/,
+		  goalStrokeWidth: 1.5,
+		  dateFormat:function convertDate(x) {
+			  var d = new Date(x);
+			  var months = ["Jan", "Fév", "Mar","Avr","Mai","Juin","Juil","Août","Sept","Oct","Nov","Déc"];
+			  return [d.getDate(), months[d.getMonth()], d.getFullYear()].join(' ');
+		  }
+		});
+	</script>
+
+</body>
+
+</html>

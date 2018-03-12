@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns="http://www.w3.org/1999/html">
+
+<head>
+
+	<!-- Header -->
+	<!--/*/ <th:block th:include="header :: head"></th:block> /*/-->
+
+</head>
+
+<body>
+
+	<!-- Navigation -->
+	<!--/*/ <th:block th:include="body :: body"></th:block> /*/-->
+
+	<div class="wrap">		
+
+		<!-- Content Section -->
+		<section>
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<h1 class="section-heading isin-title" >
+						    <span th:text="${opcvm.isin+' - '+opcvm.name+' ' }"></span>&nbsp;
+							<span th:text="${opcvm.change+'%'}" th:class="${opcvm.change} &lt; 0?'red':'green'"></span>&nbsp;
+							<span th:text="${' '+opcvm.quote+'€ ' }"></span>
+						</h1>
+
+						
+						<div id="opcvmchart" style="height: 250px;"></div>
+					 
+						<h1 class="section-heading alert-title" >Modification de l'alerte</h1>
+						
+						
+							<form  class="form-horizontal" th:action="@{/alerte}" th:object="${alerte}" method="post">
+								<input type="hidden" th:field="*{id}" />
+								<input type="hidden" th:field="*{isin}" />
+								
+								<div class="form-group">
+				                	<label class="col-sm-2 control-label">Durée</label>
+				                	<div class="col-sm-10 ">
+				                	<select class="form-control" th:field="*{validityDuration}" >
+		    							<option value="1">1 jour</option>
+		    							<option value="7">1 semaine</option>
+		    							<option value="14">2 semaines</option>
+		    							<option value="30">1 mois</option>
+		    							<option value="60">2 mois</option>
+		  							</select>
+		  							</div>
+				                </div>
+				                <div class="form-group">
+				                	<label class="col-sm-2 control-label">Type</label>
+				                	<div class="col-sm-10 ">
+				                	<select class="form-control" th:field="*{type}">
+										<option value="TRIGGER_ALERT">La valeur dépasse un seuil</option>
+										<option value="CHANGE_ALERT">La variation a dépassé un
+											seuil</option>
+										<option value="TUNNEL_ALERT">La valeur est sortie du
+											tunnel</option>
+										<option value="HIGHEST_YEAR">La valeur atteint son plus
+											haut de l'année</option>
+										<option value="LOWEST_YEAR">La valeur atteint son plus
+											bas de l'année</option>
+										<option value="HIGHEST_52WK">La valeur atteint son plus
+											haut depuis 52 semaines</option>
+										<option value="LOWEST_52WK">La valeur atteint son plus
+											bas depuis 52 semaines</option>
+		
+									</select>
+									</div>
+								</div>
+								<div class="form-group" id="form-group-trend">
+				                	<label class="col-sm-2 control-label">Tendance</label>
+				                	<div class="col-sm-10 ">
+				                	<select class="form-control" th:field="*{trend}" >
+				                	<option value="UP">à la hausse</option>
+				                	<option value="DOWN">à la baisse</option>
+									</select>
+									</div>
+								</div>
+				                <div class="form-group" id="form-group-value">
+				                	<label class="col-sm-2 control-label">Valeur</label>
+				                	<div class="col-sm-10 ">
+				                	<input type="text" class="form-control" th:field="*{value}" />	
+		  							</div>
+				                </div>
+				                <div class="form-group" id="form-group-change">
+				                	<label class="col-sm-2 control-label">Variation</label>
+				                	<div class="col-sm-10 ">
+				                	<input type="text" class="form-control" th:field="*{change}" />	
+		  							</div>
+				                </div>
+				                <div class="form-group" id="form-group-minvalue">
+				                	<label class="col-sm-2 control-label">Borne min</label>
+				                	<div class="col-sm-10 ">
+				                	<input type="text" class="form-control" th:field="*{minValue}" />	
+		  							</div>
+				                </div>
+				                <div class="form-group" id="form-group-maxvalue">
+				                	<label class="col-sm-2 control-label">Borne max</label>
+				                	<div class="col-sm-10 ">
+				                	<input type="text" class="form-control" th:field="*{maxValue}" />	
+		  							</div>
+				                </div>
+				                
+				                <div class="form-group">
+				                	<div class="col col-xs-7 col-sm-10"></div>
+		            				<div class="col col-xs-5 col-sm-2 text-right">
+		                			<button type="submit" class="btn btn-default btn-primary">Enregistrer</button>
+		            				</div>
+		            			</div>
+							</form>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+
+	<!-- Footer -->
+	<!--/*/ <th:block th:include="footer :: body"></th:block> /*/-->
+	<script type="text/javascript" th:inline="javascript">
+	
+	
+	var data = {
+			  // ID of the element in which to draw the chart.
+			  element: 'opcvmchart',
+			  // Chart data records -- each entry in this array corresponds to a point on
+			  // the chart.
+			  data:  /*[[${data}]]*/,
+			  ymin: /*[[${ymin}]]*/,
+			  ymax: /*[[${ymax}]]*/,
+			  origymin: /*[[${ymin}]]*/,
+			  origymax: /*[[${ymax}]]*/,
+			  pointSize:0,
+			  smooth:0,
+			  fillOpacity:0.2,
+			  xkey: 'period',
+			  ykeys: ['value'],
+			  labels: ['VL'],
+			  postUnits: ' €',
+			  xLabels: 'month',
+			  lineColors: ['#7f7f7f'],
+			  goals: [],
+			  goalLineColors: [],
+			  goalStrokeWidth: 1.5,
+			  dateFormat:function convertDate(x) {
+				  var d = new Date(x);
+				  var months = ["Jan", "Fév", "Mar","Avr","Mai","Juin","Juil","Août","Sept","Oct","Nov","Déc"];
+				  return [d.getDate(), months[d.getMonth()], d.getFullYear()].join(' ');
+			  }
+			};
+	
+		hideElements(/*[[${alerte.type.toString()}]]*/);
+		$('#type').on('change', function() {
+			hideElements(this.value);
+		});
+		$('#trend').on('change', function() {
+			updateGraph();
+		});
+
+		createTouchSpin($('#value'));
+		createTouchSpin($('#minValue'));
+		createTouchSpin($('#maxValue'));
+
+	</script>
+
+</body>
+
+</html>

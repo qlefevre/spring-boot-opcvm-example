@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+
+	<!-- Header -->
+	<!--/*/ <th:block th:include="header_login :: head"></th:block> /*/-->
+
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="main main-password">
+				<h3 th:if="${#strings.isEmpty(resetToken)}" >Créer un compte</h3>
+				<h3 th:if="${!#strings.isEmpty(resetToken)}" >Changement de mot de passe</h3>
+				<p th:if="${!#strings.isEmpty(resetToken)}" class="account-description">Pour réinitialiser votre mot de passe, veuillez compléter les champs ci-dessous :</p>
+				<form th:action="@{/compte}" method="post">
+					<input type="hidden" name="resettoken" th:value="${resetToken}" />
+					<input th:if="${!#strings.isEmpty(resetToken)}" type="hidden" name="email" th:value="${email}" />
+					<div th:if="${#strings.isEmpty(resetToken)}" class="form-group">
+						<label for="email">Email</label> 
+						<input type="text" class="form-control" id="email" name="email" />
+					</div>
+					<div class="form-group">
+						<label for="password1">Mot de passe</label> 
+						<input type="password" class="form-control" id="password1" name="password1" />
+					</div>
+					<div class="form-group">
+						<label for="password2">Confirmation mot de passe</label> 
+						<input type="password" class="form-control" id="password2" name="password2" />
+					</div>
+					<button type="submit" class="btn btn btn-primary">Enregistrer</button>
+				</form>
+
+			</div>
+
+		</div>
+	</div>
+</body>
+</html>

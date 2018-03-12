@@ -1,0 +1,73 @@
+body {
+	padding-top: 100px;
+	font-size: 14px;
+	background: url("../img/bourse.jpg") no-repeat center center;
+	background-size: cover;
+}
+@media (max-width: 1000px) { 
+	body {
+		background-size: auto;
+	}
+}
+.main {
+	max-width: 360px;
+	margin: 0 auto;
+	padding: 20px;
+	background-color: rgba(255, 255, 255, 0.8);
+	border-radius: 20px;
+}
+.main-password {
+	max-width: 450px;
+}
+.alert-container{
+	max-width: 500px;	
+	margin: 0 auto;
+}
+.alert{
+	border-width: 1px;
+	text-align: center;
+	border-color: #ccc;
+	font-size: 16px;
+}
+.login-or {
+	position: relative;
+	font-size: 18px;
+	color: #aaa;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.span-or {
+	display: block;
+	position: absolute;
+	left: 50%;
+	top: -2px;
+	margin-left: -25px;
+	background-color: #fff;
+	width: 50px;
+	text-align: center;
+}
+
+.hr-or {
+	background-color: #cdcdcd;
+	height: 1px;
+	margin-top: 0px !important;
+	margin-bottom: 0px !important;
+}
+
+h3 {
+	text-align: center;
+	line-height: 300%;
+}
+
+.btn-google, .btn-google:hover, .btn-google:active, .btn-google:visited
+	{
+	background-color: #dd4b39;
+}
+
+.btn-microsoft, .btn-microsoft:hover, .btn-microsoft:active, .btn-microsoft:visited
+	{
+	background-color: #3B73B1;
+}

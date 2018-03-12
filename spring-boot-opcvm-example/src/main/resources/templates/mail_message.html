@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title th:text="${subject}"></title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <style>
+		
+		body{
+			margin: 0px;
+			background-color: #F9F9F9;
+			color: black;
+			font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+		}
+		h1 {
+			font-family: inherit;
+		    text-transform: uppercase;
+    		font-size: 1.4em;
+    		font-weight: 500;
+    		line-height: 1.1;
+    		color: white;
+			padding:0px;
+			margin:0px;
+		}
+		h2 {
+    		font-size: 1.1em;
+    		font-weight: 500;
+    		line-height: 0.9;
+			color: black;
+			height: 100%;
+			padding:0px;
+			margin:0px;
+			margin-bottom:10px;
+		}
+		.content {
+			padding: 10px 20px;
+			font-size: 1.1em;
+		}
+		.info {
+			padding: 10px 20px;
+			font-size: 0.8em;
+		}
+		.content.visit{
+			padding: 20px 20px 30px 20px;
+		}
+		.title {
+			background-color: black;
+			padding: 20px 20px;
+		}
+		.opcvm {
+			background-color: white;
+			padding: 20px 20px 0px 20px;
+		}
+		.footer{
+			padding: 20px 20px;
+			bottom: 0px;
+			position: absolute;
+			background-color: black;
+			color: white;			
+			width: 100%;
+			font-size: 1em;
+		}
+		a:visited{
+			text-decoration:none;
+			color: white !important;
+		}
+		a{
+			text-decoration:none;
+			color: white !important;
+		}
+		a:hover{
+			text-decoration:underline;
+			color: white !important;
+		}
+
+		a.btn-visit{
+			padding: 10px 10px;
+			background-color: white;
+			color: black !important;
+			font-family: inherit;
+    		font-size: 1em;
+    		font-weight: 500;
+    		line-height: 1.1;
+			border-radius : 5px;
+			text-decoration:none;
+			border-color: black;
+			border-width:1px;
+			border-style: solid;
+		}
+		a.btn-visit:hover{
+			background-color: black;
+			color: white !important;					
+		}
+		</style>
+    </head>
+    <body>
+        <div class="title">
+            <h1 th:text="${subject}"></h1>
+		</div>         
+		<div class="content" th:utext="${content}"></div>
+		<div class="content visit">
+			<a class="btn-visit" th:href="${link}" th:text="${button}"></a>
+		</div>
+		<div th:if="${info != null}" class="info" th:utext="${info}"></div>
+		<div class="footer">
+			Copyright © <a href="http://localhost">Alertes OPCVM</a> 2017
+		</div>
+    </body>
+</html>

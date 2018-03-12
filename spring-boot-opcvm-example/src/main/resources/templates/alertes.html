@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns="http://www.w3.org/1999/html">
+
+<head>
+
+	<!-- Header -->
+	<!--/*/ <th:block th:include="header :: head"></th:block> /*/-->
+
+</head>
+
+<body>
+
+	<!-- Navigation -->
+	<!--/*/ <th:block th:include="body :: body"></th:block> /*/-->
+
+	<div class="wrap">		
+
+		<!-- Content Section -->
+		<section>
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<h4 class="section-heading" >Mes alertes</h4>
+						<table class="complextable table table-striped table-hover" >
+							<thead>
+								<tr>
+									<th>ISIN</th>
+									<th>Description</th>
+									<th>Type</th>
+									<th>Action</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="alerte : ${alertes}">
+									<td><a th:text="${alerte.isin}" th:href="${'/opcvm/'+alerte.isin}"></a></td>
+									<td><a th:text="${isin2descriptions.get(alerte.isin)}" th:href="${'/opcvm/'+alerte.isin}"></a></td>
+									<td th:switch="${alerte.type.toString()}">
+										<a th:href="${'/alerte/'+alerte.id}">
+										<span th:case="TRIGGER_ALERT">La valeur dépasse un seuil</span>
+										<span th:case="CHANGE_ALERT">La variation a dépassé un seuil</span>
+										<span th:case="TUNNEL_ALERT">La valeur est sortie du tunnel</span>
+										<span th:case="HIGHEST_YEAR">La valeur atteint son plus haut de l'année</span>
+										<span th:case="LOWEST_YEAR">La valeur atteint son plus bas de l'année</span>
+										<span th:case="HIGHEST_52WK">La valeur atteint son plus haut depuis 52 semaines</span>
+										<span th:case="LOWEST_52WK">La valeur atteint son plus bas depuis 52 semaines</span>
+										</a>
+									</td>
+									<td><a th:href="${'/alerte/'+alerte.id}">
+										<span th:class="${'icon-'+alerte.type}" th:utext="${alert2actions.get(alerte.id)}"></span>
+										</a>
+									</td>
+									<td>
+										<button th:onclick="${'showModal('+alerte.id+');'}" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						
+
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+	
+	<div id="deleteAlert" class="modal fade">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	                <h4 class="modal-title">Suppression de l'alerte</h4>
+	            </div>
+	            <div class="modal-body">
+	                <p>Etes vous sûr de vouloir supprimer l'alerte ?</p>
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+	                <a id="buttondelete" class="btn btn-primary">Supprimer</a>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	
+	<!-- Footer -->
+	<!--/*/ <th:block th:include="footer :: body"></th:block> /*/-->
+
+
+<script type="text/javascript">
+	var showModal = function(id){
+		$('#buttondelete').attr('href','/alerte/supprimer/'+id);
+		$("#deleteAlert").modal('show');
+	}
+
+</script>
+
+</body>
+
+</html>

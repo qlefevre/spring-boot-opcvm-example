@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+
+	<!-- Header -->
+	<!--/*/ <th:block th:include="header_login :: head"></th:block> /*/-->
+
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="alert-container">
+				<div th:if="${param.error}" class="alert alert-danger alert-dismissable" role="alert">Email ou mot de passe invalide.</div>
+				<div th:if="${param.logout}" class="alert alert-success alert-dismissable" role="alert">Vous êtes déconnecté.</div>
+				<div th:if="${param.passwordchanged}" class="alert alert-success alert-dismissable" role="alert">Votre mot de passe a bien été modifié.</div>
+				<div th:if="${param.resetpasswordsend}" class="alert alert-info alert-dismissable" role="alert">Nous venons de vous envoyer un email à votre adresse pour réinitialiser votre mot de passe.</div>
+				<div th:if="${param.unknownmail}" class="alert alert-danger alert-dismissable" role="alert">Cette adresse email n'est pas connue.</div>
+				<div th:if="${param.confirm}" class="alert alert-success alert-dismissable" role="alert">Votre compte est activé.</div>
+			</div>
+			<div class="main">
+
+				<h3>
+					Se connecter, ou <a th:href="@{/compte}">s'enregistrer</a>
+				</h3>
+				<div class="row">
+					<!--
+					<div class="col-xs-6 col-sm-6 col-md-6">
+						<a href="/login/facebook" class="btn btn-lg btn-primary btn-microsoft btn-block"><i class="fa fa-facebook" aria-hidden="true"></i>&nbsp;&nbsp;Facebook</a>
+					</div>
+					<div class="col-xs-6 col-sm-6 col-md-6">
+					  -->
+					<div class="col-xs-12 col-sm-12 col-md-12">
+						<a href="/login/google" class="btn btn-lg btn-danger btn-google btn-block"><i class="fa fa-google" aria-hidden="true"></i>&nbsp;&nbsp;Google</a>
+					</div>
+				</div>
+				<div class="login-or">
+					<hr class="hr-or"></hr>
+				</div>
+
+				<form th:action="@{/login}" method="post">
+					<div class="form-group">
+						<label for="inputUsernameEmail">Email</label> 
+						<input type="text" class="form-control" id="inputUsernameEmail" name="username" />
+					</div>
+					<div class="form-group">
+						<a class="pull-right" href="/motdepasseoublie">Mot de passe oublié ?</a> 
+						<label for="inputPassword">Mot de passe</label> 
+						<input type="password" class="form-control" id="inputPassword" name="password" />
+					</div>
+					<div class="checkbox pull-right">
+						<!-- <label> <input type="checkbox" /> Rester connecté</label> -->
+					</div>
+					<button type="submit" class="btn btn btn-primary">Connexion</button>
+				</form>
+
+			</div>
+
+		</div>
+	</div>
+</body>
+</html>

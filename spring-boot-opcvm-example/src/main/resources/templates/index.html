@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns="http://www.w3.org/1999/html">
+
+<head>
+
+	<!-- Header -->
+	<!--/*/ <th:block th:include="header :: head"></th:block> /*/-->
+
+</head>
+
+<body>
+
+	<!-- Navigation -->
+	<!--/*/ <th:block th:include="body :: body"></th:block> /*/-->
+
+	<div class="wrap">
+	
+		<!-- Full Width Image Header with Logo -->
+		<!-- Image backgrounds are set within the full-width-pics.css file. -->
+		<header class="image-bg-fluid-height header-high">
+			<h1>Alertes OPCVM</h1>
+			<br />
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+						<form th:action="@{/}" method="get">
+							<div class="input-group">
+								<input type="text" name="r" class="form-control"
+									placeholder="Rechercher par nom ou ISIN..."></input> <span
+									class="input-group-btn">
+									<button class="btn btn-default" type="submit">
+										<span class="glyphicon glyphicon-search"></span>
+									</button>
+								</span>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</header>
+
+		<!-- Content Section -->
+		<section>
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+						<h4 th:if="${!#strings.isEmpty(recherche)}" class="section-heading">Résultats pour <i th:text="${recherche}"></i></h4>
+						<h4 th:if="${#strings.isEmpty(recherche)}" class="section-heading">Palmarès</h4>
+						<table class="simpletable table table-condensed table-striped table-hover">
+							<thead>
+								<tr>
+									<th>ISIN</th>
+									<th>Description</th>
+									<th>Valeur</th>
+									<th>Variation</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="opcvm : ${opcvms}">
+									<td><a th:text="${opcvm.isin}"
+										th:href="${'opcvm/'+opcvm.isin}"></a></td>
+									<td th:text="${opcvm.name}"></td>
+									<td th:text="${opcvm.quote+'€'}"></td>
+									<td th:text="${opcvm.change+'%'}"
+										th:class="${opcvm.change} &lt; 0?'red':'green'"></td>
+								</tr>
+							</tbody>
+						</table>
+
+					</div>
+				</div>
+				<div class="row">
+                  <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+                    <ul class="pagination hidden-xs">
+                      <li  th:each="pageIndex:${#numbers.sequence(paginationstart,paginationend)}" th:class="${page.equals(pageIndex)}?'active':''">               
+                      	<a th:href="${page.equals(pageIndex)?'?r='+recherche:'?r='+recherche+'&amp;page='+pageIndex}" th:text="${pageIndex+1}"></a>	
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+			</div>
+		</section>
+	</div>
+
+	<!-- Footer -->
+	<!--/*/ <th:block th:include="footer :: body"></th:block> /*/-->
+
+</body>
+
+</html>

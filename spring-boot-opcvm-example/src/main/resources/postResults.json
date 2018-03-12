@@ -1,0 +1,37 @@
+[
+  {
+    "url": "https://www.opcvm360.com/opcvm/fiche/oddo-active-smaller-companies-cr",
+    "isin": "FR0011631050",
+    "name": "ODDO ACTIVE SMALLER COMPANIES CR",
+    "quote": 10.0,
+    "change": 0.10
+  },
+  {
+    "url": "https://www.opcvm360.com/opcvm/fiche/amplegest-pme-ac",
+    "isin": "FR0011631050",
+    "name": "Amplégest PME AC",
+    "quote": 20.0,
+    "change": 0.20
+  },
+  {
+    "url": "http://www.quantalys.com/fonds/100336/Synthese_FR0011631050_AMPLEGEST_PME_AC.aspx",
+    "isin": "FR0011631050",
+    "name": "Amplégest PME AC",
+    "quote": 20.0,
+    "change": 0.20
+  },
+  {
+    "url": "http://www.boursorama.com/bourse/opcvm/opcvm.phtml?symbole=0P00011S1H",
+    "isin": "FR0011631050",
+    "name": "Amplégest PME AC",
+    "quote": 20.0,
+    "change": 0.20
+  },
+  {
+    "url": "http://www.boursorama.com/bourse/opcvm/opcvm.phtml?symbole=0P00011IDZ",
+    "isin": "FR0011631050",
+    "name": "Oddo Active Smaller Companies CR-EUR",
+    "quote": -20.0,
+    "change": -0.20
+  }
+]

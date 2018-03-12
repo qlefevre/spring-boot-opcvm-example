@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns="http://www.w3.org/1999/html">
+<head>
+</head>
+<body th:fragment="footer">
+
+	<!-- Footer -->
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<p>Copyright &copy; <a href="http://locahost">Alertes OPCVM</a> 2017
+					 - <a href="/avertissement-legal">Avertissement légal</a>
+					 - <a th:if="${opcvm == null}" href="/ajouter-une-alerte">Ajouter une alerte OPCVM</a>
+					 <a th:if="${opcvm != null}" href="/ajouter-une-alerte" th:text="${'Ajouter une alerte sur '+opcvm.name}"></a>
+					 - <a th:if="${opcvm == null}" href="/ajouter-une-alerte">Programmer une alerte OPCVM</a>
+					 <a th:if="${opcvm != null}" href="/ajouter-une-alerte" th:text="${'Programmer une alerte sur '+opcvm.name}"></a>
+					 </p>
+				</div>
+			</div>
+			<!-- /.row -->
+		</div>
+		<!-- /.container -->
+	</footer>
+
+	<!-- Javascript -->
+	<script	src="//cdn.jsdelivr.net/webjars/jquery/3.2.1/jquery.min.js"></script>
+	<script	src="//cdn.jsdelivr.net/webjars/raphaeljs/2.1.4/raphael-min.js"></script>
+	<script	src="//cdn.jsdelivr.net/webjars/morrisjs/0.5.1/morris.min.js"></script>
+	<script	src="//cdn.jsdelivr.net/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-touchspin/3.1.2/jquery.bootstrap-touchspin.min.js"></script>
+	<script src="/js/page.js"></script>
+</body>
+</html>
