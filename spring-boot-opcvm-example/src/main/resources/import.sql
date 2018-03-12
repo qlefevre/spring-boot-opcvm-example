@@ -1,8 +1,8 @@
 -- Users and Roles
-INSERT INTO user (email, enabled, password) VALUES ('qlefevre@gmail.com', 1, '$2a$10$cb8UN7unoA3SA9lXXmIfWO/ZFA89F4/t1n7Ycnu3s5cj.8pjaNIoe');
+INSERT INTO user (email, enabled, password) VALUES ('admin@gmail.com', 1, '$2a$04$isXgbEbbGLNZld99vVg7zeL1u7Lw2CQGHcee0GniZunxP.amo/1ma');
 
-INSERT INTO role (email, role) VALUES ('qlefevre@gmail.com', 'ROLE_USER');
-INSERT INTO role (email, role) VALUES ('qlefevre@gmail.com', 'ROLE_ADMIN');
+INSERT INTO role (email, role) VALUES ('admin@gmail.com', 'ROLE_USER');
+INSERT INTO role (email, role) VALUES ('admin@gmail.com', 'ROLE_ADMIN');
 
 -- QuoteExtractor
 INSERT INTO quote_extractor (change_group, change_regex, domain, isin_group, isin_regex, name_group, name_regex, quote_group, quote_regex) VALUES ('2', '<span class=''color@word@ variation''>@number@%</span>', 'boursorama.com', '1', '@isin@</h1>', '1', '<h1 class=''seoinline bc-system''>@any@ - @isin@</h1>', '1', '<span class="cotation">@number@EUR</span>');
