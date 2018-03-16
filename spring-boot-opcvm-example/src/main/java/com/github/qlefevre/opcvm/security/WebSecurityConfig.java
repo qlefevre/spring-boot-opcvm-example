@@ -70,8 +70,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	public void configure(WebSecurity web)
             throws Exception {
-			web.ignoring().antMatchers(HttpMethod.POST, "/crawler/**")
-			.antMatchers("/ajax/**","/css/**","/js/**","/img/**");
+			web.ignoring().antMatchers(HttpMethod.POST, "/crawler/**","/h2-console/**")
+			.antMatchers("/ajax/**","/css/**","/js/**","/img/**","/h2-console/**");
 	}
 	
     @Override

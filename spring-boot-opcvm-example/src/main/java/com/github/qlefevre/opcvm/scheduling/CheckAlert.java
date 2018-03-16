@@ -155,7 +155,7 @@ public class CheckAlert {
     	 String content = MessageFormat.format(message, parameters);
     	 
     	 Context context = new Context();
-    	 context.setVariable("website", "https://mysite.com");
+    	 context.setVariable("website", "https://spring-boot-opcvm-example");
  		 context.setVariable("opcvm", opcvm);
  		 context.setVariable("content", content);
  		 context.setVariable("alerte", OpcvmUtil.toAction(alert, OpcvmUtil.alertColors(Arrays.asList(alert),false)));

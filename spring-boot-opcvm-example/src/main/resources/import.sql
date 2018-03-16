@@ -21,16 +21,10 @@ INSERT INTO quote_supplier (domain,enabled,start_hour) VALUES ('boursier.com',1,
 INSERT INTO quote_supplier (domain,enabled,start_hour) VALUES ('fortuneo.fr',1,7);
 
 -- Mise à jour quote et changevalue
-UPDATE opcvm o JOIN ( SELECT quote, changevalue, isin FROM quote_history where date > (SELECT date(max(date)) FROM quote_history) ORDER BY date desc ) h ON o.isin = h.isin SET  o.quote = h.quote, o.changevalue = h.changevalue;
-
--- Liste des codes isin ayant seulement 1 url
--- SELECT COUNT(isin) AS isin_count, isin FROM  opcvm.quote_url GROUP BY isin HAVING COUNT(isin) <2 
-CREATE TEMPORARY TABLE temp SELECT isin FROM  quote_url GROUP BY isin HAVING COUNT(isin) <2;
-DELETE FROM  quote_url WHERE isin in (SELECT isin FROM temp);
-DROP TEMPORARY TABLE temp;
-
--- Suppression des opcvm avec 1 url
-DELETE FROM opcvm WHERE isin in (SELECT isin FROM  quote_url GROUP BY isin HAVING COUNT(isin) <2);
+-- UPDATE opcvm o JOIN ( SELECT quote, changevalue, isin FROM quote_history where date > (SELECT date(max(date)) FROM quote_history) ORDER BY date desc ) h ON o.isin = h.isin SET  o.quote = h.quote, o.changevalue = h.changevalue;
+UPDATE opcvm o 
+SET quote = (select h.quote from quote_history h where h.isin = o.isin order by h.date desc limit 1 ), 
+     changevalue = (select h.changevalue from quote_history h where h.isin = o.isin order by h.date desc limit 1 );
 
 -- Alertes
 INSERT INTO alert (changevalue,change_amount,creation_date,email,end_date,isin,max_value,min_value,modification_date,trend,type,validity_duration,value) VALUES (0,0,'2017-10-04 08:21:36','admin@gmail.com','2017-12-03 08:21:36','FR0011556828',746.02,744.02,'2017-10-17 08:00:00','DOWN','TRIGGER_ALERT',60,754);

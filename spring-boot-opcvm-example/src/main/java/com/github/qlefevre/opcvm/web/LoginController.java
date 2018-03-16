@@ -117,7 +117,7 @@ public class LoginController {
     		
     		if(StringUtils.isEmpty(resetToken)){
     			String button = "Confirmer l'adresse mail";
-    			String subject = "Bienvenue chez mysite.com"; 
+    			String subject = "Bienvenue chez spring-boot-opcvm-example"; 
         		String content = "Bonjour,"
     			+ "<br/>Merci de vous être inscrit sur le site ! Veuillez confirmer votre adresse email en cliquant sur le lien suivant.";
     			String link = "https://"+NetworkUtil.SITENAME+"/compte?confirmationtoken="+user.getConfirmationToken();
